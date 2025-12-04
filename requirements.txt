@@ -1,0 +1,24 @@
+# Core
+pandas>=2.2.2
+numpy>=1.26.4
+requests>=2.32.3
+tzdata>=2024.1
+
+# Google Cloud
+google-auth>=2.32.0
+google-cloud-storage>=2.17.0
+google-cloud-translate>=3.15.4
+
+# Google AI (Vertex AI 経由の新 SDK)
+google-genai>=0.5.0
+
+# Env
+python-dotenv>=1.0.0
+
+# Scraper dependencies
+beautifulsoup4>=4.12.3
+tldextract>=5.1.2
+dateparser>=1.2.0
+trafilatura>=1.8.0
+readability-lxml>=0.8.1
+newspaper3k>=0.2.8
