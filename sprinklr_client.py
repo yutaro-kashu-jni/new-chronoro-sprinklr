@@ -2,6 +2,14 @@
 import os, json, time, tempfile, re
 from typing import Tuple, Dict, Any
 import requests
+
+import logging
+import google.cloud.logging
+from google.cloud.logging.handlers import CloudLoggingHandler
+
+
+
+
  # .envファイルの読み込みと環境変数の設定
 from dotenv import load_dotenv, find_dotenv  # [ENV]
 _ = load_dotenv(find_dotenv(filename=os.getenv("ENV_FILE", ".env"), usecwd=True))  # [ENV]
@@ -15,8 +23,8 @@ except Exception:
     _GCS_AVAILABLE = False
 
 # ===== 設定 =====
-ENV = os.getenv("SPRINKLR_ENV", "prod11")  # [ENV]
-TOK_PATH = os.getenv("SPRINKLR_TOKENS_URI", "gs://sc-report/secrets/sprinklr_tokens.json")  # [ENV]
+ENV = os.getenv("SPRINKLR_ENV")  # [ENV]
+TOK_PATH = os.getenv("SPRINKLR_TOKENS_URI")  # [ENV]
 
 # 重要：APIとOAuthのベースURLを分離（必要に応じて上書き可能）
 API_BASE   = os.getenv("SPRINKLR_API_BASE",   f"https://api2.sprinklr.com/{ENV}")  # [ENV]
@@ -107,7 +115,9 @@ def _save_tokens(t):
         _atomic_local_write(TOK_PATH, payload)
 
  # リフレッシュトークンを使ってアクセストークンを更新する関数
-def _refresh(toks):
+def _refresh(toks, **kw):
+    print("!!_refresh!!")
+    print(toks["refresh_token"])
     r = requests.post(
         f"{OAUTH_BASE}/oauth/token",
         headers={"Content-Type":"application/x-www-form-urlencoded"},
@@ -119,11 +129,35 @@ def _refresh(toks):
         },
         timeout=60
     )
-    r.raise_for_status()
+    try:
+        r.raise_for_status()
+    except requests.exceptions.HTTPError:
+        print("===IF SPRINKLR API ERROR ===")
+        print("Status:", r.status_code)
+        print("URL:", r.url)
+        print("Response Text:", r.text)
+        try:
+            print("ERROR JSON Response:", r.json())
+        except Exception:
+            print("!!JSON Response: <not json>")
+        print(json.dumps(kw.get("json"), indent=2, ensure_ascii=False))
+        raise
+    # r.raise_for_status()
     new = r.json()
     toks.update(new)  # access_token / refresh_token を上書き
     _save_tokens(toks)
     return toks
+
+def log_sprinklr_payload(payload):
+    logging.info({
+        "message": "Sprinklr Request Payload",
+        "payload": payload,
+        "operation": {
+            "id": payload.get("reportName") or payload.get("reportId") or "unknown",
+            "producer": "chronoro-sprinklr-client"
+        }
+    })
+
 
  # Sprinklr APIを呼び出す共通関数
 def spr(method: str, path: str, **kw) -> Any:
@@ -142,11 +176,76 @@ def spr(method: str, path: str, **kw) -> Any:
         "Content-Type": "application/json",
     })
     url = API_BASE + path
+    
+    client = google.cloud.logging.Client()
+    handler = CloudLoggingHandler(client)
+    logger = logging.getLogger("sprinklr")
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
+    
+
+    if "json" in kw:
+        try:
+            log_sprinklr_payload(kw.get("json"))
+            # print(json.dumps({"message": "Sprinklr Request Payload", "payload": kw["json"]}, ensure_ascii=False))
+        except Exception:
+            print("2.[WARN] !!Could not print JSON payload")
+                
     r = requests.request(method, url, headers=headers, timeout=120, **kw)
+    print("====1.request_key====")
+    print(method)
+    print(url)
+    print(headers)
+    print('~~~~~~~~~~~~~~~')
+    print(r.status_code)
+    print(r.text)
+    print("====   ====")
+
+
+
+    
+    if r.status_code >= 400:
+        try:
+            print("3.JSON Response:", r.json())
+        except:
+            print("4.JSON Response: <not json>")
+        print("5.===== SENT PAYLOAD =====")
+        try:
+            print(json.dumps(kw.get("json"), indent=2, ensure_ascii=False))
+        except:
+            print("6.<payload parse error>")
+            print("Status:", r.status_code)
+            print("URL:", r.url)
+            print("Response Text:", r.text)
+        print("=========================")
+    
+    
+    
+        
     if r.status_code in (401, 403) and "refresh_token" in toks:
+        print("!!Access Info !!")
+        print(os.getenv("SPRINKLR_CLIENT_ID"))
+        print(os.getenv("SPRINKLR_CLIENT_SECRET"))
+        print(os.getenv("SPRINKLR_TOKENS_URI"))
+        print(TOK_PATH)
+        print("!!Access Info !!")
+            
         toks = _refresh(toks)
         headers["Authorization"] = f"Bearer {toks['access_token']}"
         r = requests.request(method, url, headers=headers, timeout=120, **kw)
+        
+        try:
+            r.raise_for_status()
+        except requests.exceptions.HTTPError:
+            print("===~~ SPRINKLR API ERROR DETECTED ~~===")
+            print("Status:", r.status_code)
+            print("URL:", r.url)
+            print("Response Text:", r.text)
+            print("=========================")
+            raise  # ← 再スロー
+        #  ここまで追加
+        
+        
     r.raise_for_status()
     # レポート系は text を返す構成もあるが、ここでは JSON 想定
     try:

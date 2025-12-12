@@ -1,0 +1,15 @@
+{
+  "report": "SPRINKSIGHTS",
+  "reportingEngine": "LISTENING",
+  "startTime": 1700000000000,
+  "endTime": 1700003600000,
+  "page": 0,
+  "pageSize": 1,
+  "filters": [
+    {
+      "dimensionName": "LISTENING_MEDIA_TYPE",
+      "filterType": "IN",
+      "values": ["NEWS"]
+    }
+  ]
+}

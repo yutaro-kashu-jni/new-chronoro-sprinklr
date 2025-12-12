@@ -1,0 +1,190 @@
+{
+    "report": "SPRINKSIGHTS",
+    "reportingEngine": "LISTENING",
+    "startTime": 1752505200000,
+    "endTime": 1754319599999,
+    "timeZone": "Asia/Tokyo",
+    "page": 0,
+    "pageSize": 20,
+    "filters": [
+        {
+            "dimensionName": "LISTENING_MEDIA_TYPE",
+            "filterType": "IN",
+            "values": [
+                "NEWS"
+            ],
+            "details": {
+                "uniqueId": "D_LISTENING_MEDIA_TYPE",
+                "reportName": "SPRINKSIGHTS",
+                "contentType": "DB_FILTER",
+                "DB_FILTER_REPORT_NAME": "SPRINKSIGHTS",
+                "OLD_DIM_NAME": "LISTENING_MEDIA_TYPE",
+                "HAS_ALERT": false,
+                "displayNameForWarning": "Source",
+                "nameQueryLookupSupported": "true",
+                "HAS_TOOLTIP_DATA": true
+            }
+        },
+        {
+            "dimensionName": "TOPIC_IDS",
+            "filterType": "IN",
+            "values": [
+                "68906d4e3782423b7c8261cb",
+                "68906dfb3782423b7c82b731",
+                "68906dba3782423b7c82968b",
+                "6890705d3782423b7c83e8e9",
+                "689070393782423b7c83d795",
+                "68906fb03782423b7c83948d",
+                "68906d6b3782423b7c827004",
+                "68906dda3782423b7c82a6c9",
+                "68906fd93782423b7c83a857",
+                "68906c7c3782423b7c81fbc6",
+                "68906c373782423b7c81d7fc",
+                "68906cc73782423b7c822127",
+                "68906c5f3782423b7c81ece6",
+                "68906ca73782423b7c82118a",
+                "689071ae3782423b7c84882b",
+                "689070863782423b7c83fcab",
+                "6890716e3782423b7c846a7b",
+                "689071d73782423b7c849afa",
+                "689071293782423b7c84499c"
+            ],
+            "details": {
+                "uniqueId": "D_TOPIC_IDS",
+                "reportName": "SPRINKSIGHTS",
+                "contentType": "DB_FILTER",
+                "dF": true,
+                "DB_FILTER_REPORT_NAME": "SPRINKSIGHTS",
+                "OLD_DIM_NAME": "TOPIC",
+                "HAS_ALERT": false,
+                "nameQueryLookupSupported": "true",
+                "DRILLDOWN": false,
+                "displayNameForWarning": "トピック",
+                "EXIST_FILTER": false,
+                "HAS_TOOLTIP_DATA": true
+            }
+        },
+        {
+            "dimensionName": "QUERY",
+            "filterType": "IN",
+            "values": [
+                "NOT (site:\"baijiahao.baidu.com\" OR site:\"toutiao.com\" OR site:\"163.com\" OR site:\"yidianzixun.com\" OR site:\"a.mp.uc.cn\" OR site:\"sohu.com\" OR site:\"new.qq.com\" OR site:\"m.uczzd.cn\" OR site:\"mbd.baidu.com\" OR site:\"finance.sina.com.cn\" OR site:\"k.sina.com.cn\" OR site:\"impactnews.uk\" OR site:\"worldcat.org\" OR site:\"thainewsreports.com\" OR site:\"msn.com\" OR site:\"123ru.net\" OR site:\"pastinfo.am\" OR site:\"icrowdru.com\" OR site:\"news.yahoo.co.jp\" OR site:\"renrendoc.com\" OR site:\"kitaaa.net\" OR site:\"matome-crawler.com\" OR site:\"nordot.app\" OR site:\"news.goo.ne.jp\" OR site:\"news.nifty.com\" OR site:\"excite.co.jp\" OR site:\"koreanewsgazette.com\" OR site:\"2nn.jp\" OR site:\"topics.smt.docomo.ne.jp\" OR site:\"news.nicovideo.jp\" OR site:\"incident-wo.com\" OR site:\"news.livedoor.com\" OR site:\"headtopics.com\" OR site:\"home.kingsoft.jp\" OR site:\"infoseek.co.jp\" OR site:\"newseveryday.jp\" OR site:\"portal.auone.jp\" OR site:\"targetednews.com\" OR site:\"girlsvip-matome.com\" OR site:\"news.qq.com\" OR site:\"news.ifeng.com\" OR site:\"auto.ifeng.com\" OR site:\"ent.ifeng.com\" OR site:\"sports.ifeng.com\" OR site:\"travel.ifeng.com\" OR site:\"fashion.ifeng.com\" OR site:\"culture.ifeng.com\" OR site:\"gongyi.ifeng.com\" OR site:\"apnews.com\"  OR site:\"jiu.ifeng.com\" OR site:\"zum.com\" OR site:\"zhuanlan.zhihu.com\" OR site:\"zephyrnet.com\" OR site:\"yurui.jp\" OR site:\"yamagata-np.jp\" OR site:\"seesaa.net\" OR site:\"v.daum.net\" OR site:\"n.news.naver.com\" OR site:\"news.nate.com\" OR site:\"livetv.sx\" OR site:\"newsnow-2ch.com\" OR site:\"matomental.net\" OR site:\"matometatta-news.net\" OR site:\"antennabank.com\" OR site:\"nullpoantenna.com\" OR site:\"matome-ch.com\" OR site:\"auone.jp\" OR site:\"mobile01.com\" OR site:\"today.line.me\" OR site:\"m.dailyhunt.in\" OR site:\"chunichi.co.jp\" OR site:\"flyteam.jp\" OR site:\"0matome.com\" OR site:\"re-how.net\" OR site:\"iza.ne.jp\" OR site:\"kandianshare.html5.qq.com\")"
+            ],
+            "details": {
+                "contentType": "DB_FILTER",
+                "reportName": "SPRINKSIGHTS",
+                "DB_FILTER_REPORT_NAME": "SPRINKSIGHTS",
+                "OLD_DIM_NAME": "TOPIC_QUERY",
+                "HAS_ALERT": false,
+                "INPUT_TYPE": "FREE_TEXT",
+                "EXCLUDE_IN_THEME_PREVIEW": "true",
+                "displayNameForWarning": "キーワードクエリー",
+                "EXIST_FILTER": false,
+                "singleSelect": "true",
+                "HAS_TOOLTIP_DATA": true,
+                "uniqueId": "D_QUERY"
+            }
+        }
+    ],
+    "groupBys": [
+        {
+            "heading": "ES_MESSAGE_ID_0",
+            "dimensionName": "ES_MESSAGE_ID",
+            "groupType": "FIELD",
+            "details": {}
+        },
+        {
+            "heading": "SN_CREATED_TIME_1",
+            "dimensionName": "SN_CREATED_TIME",
+            "groupType": "DATE_HISTOGRAM",
+            "details": {
+                "isDateTypeDimension": true,
+                "interval": "1d"
+            }
+        },
+        {
+            "heading": "MEDIA_SOURCE_NAME_2",
+            "dimensionName": "MEDIA_SOURCE_NAME",
+            "groupType": "FIELD",
+            "details": {}
+        },
+        {
+            "heading": "WEB_TITLE_ES_MESSAGE_ID_3",
+            "dimensionName": "WEB_TITLE_ES_MESSAGE_ID",
+            "groupType": "FIELD",
+            "details": {}
+        },
+        {
+            "heading": "PERMALINK_4",
+            "dimensionName": "PERMALINK",
+            "groupType": "FIELD",
+            "details": {}
+        },
+        {
+            "heading": "COUNTRY_5",
+            "dimensionName": "COUNTRY",
+            "groupType": "FIELD",
+            "details": {}
+        }
+    ],
+    "projections": [
+        {
+            "heading": "M_SPRINKSIGHTS_REACH_COUNT_0",
+            "measurementName": "REACH_COUNT",
+            "aggregateFunction": "SUM"
+        },
+        {
+            "heading": "M_SPRINKSIGHTS_WEB_SHARES_OVERALL_1",
+            "measurementName": "WEB_SHARES_OVERALL",
+            "aggregateFunction": "SUM"
+        }
+    ],
+    "projectionDecorations": [],
+    "sorts": [
+        {
+            "heading": "WEB_SHARES_OVERALL__SUM__SPRINKSIGHTS",
+            "order": "DESC"
+        }
+    ],
+    "streamRequestInfo": {
+        "streamFields": [
+            {
+                "name": "SN_CREATED_TIME"
+            },
+            {
+                "name": "MEDIA_SOURCE_NAME"
+            },
+            {
+                "name": "WEB_TITLE_ES_MESSAGE_ID"
+            },
+            {
+                "name": "PERMALINK"
+            },
+            {
+                "name": "COUNTRY"
+            },
+            {
+                "name": "REACH_COUNT"
+            },
+            {
+                "name": "WEB_SHARES_OVERALL"
+            }
+        ]
+    },
+    "additional": {
+        "Timezone": "Asia/Tokyo",
+        "dashboardWidget": "true",
+        "moduleType": "LISTENING",
+        "widgetId": "67d23f0bbbc9872e8a698138",
+        "HIGHLIGHT_ENTITY": "QUERY",
+        "STREAM": "true",
+        "exportInfo": "false",
+        "dashboardId": "67d23f0bbbc9872e8a698116",
+        "engine": "LISTENING",
+        "showTotal": "false",
+        "chartType": "INLINE_EDITABLE_TABLE_CHART",
+        "option": "CUSTOM"
+    },
+    "skipResolve": false,
+    "jsonResponse": false
+}
